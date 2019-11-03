@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/mobile_navigation"
+    app:startDestination="@+id/nav_home">
+
+    <fragment
+        android:id="@+id/nav_set_up"
+        android:name="com.google.resumemaker.ui.SetUpFragment"
+        android:label="set_up"
+        tools:layout="@layout/fragment_set_up" />
+        <action
+            android:id="@+id/set_up_to_home_fragment"
+            app:destination="@+id/nav_home"/>
+
+    <fragment
+        android:id="@+id/nav_home"
+        android:name="com.google.resumemaker.ui.home.HomeFragment"
+        android:label="@string/menu_home"
+        tools:layout="@layout/fragment_home" />
+
+    <fragment
+        android:id="@+id/nav_profile"
+        android:name="com.google.resumemaker.ui.profile.ProfileFragment"
+        android:label="@string/menu_profile"
+        tools:layout="@layout/fragment_profile" />
+        <action
+            android:id="@+id/profile_to_edit_profile_fragment"
+            app:destination="@+id/nav_edit_profile"/>
+
+    <fragment
+        android:id="@+id/nav_edit_profile"
+        android:name="com.google.resumemaker.ui.profile.EditProfileFragment"
+        android:label="@string/profile_label"
+        tools:layout="@layout/fragment_edit_profile" />
+
+    <fragment
+        android:id="@+id/nav_positions"
+        android:name="com.google.resumemaker.ui.records.RecordsFragment"
+        android:label="@string/menu_position"
+        tools:layout="@layout/fragment_records" />
+        <action
+            android:id="@+id/record_to_modify_record_fragment"
+            app:destination="@+id/nav_modify_record"/>
+
+        <action
+            android:id="@+id/record_to_view_record_fragment"
+            app:destination="@+id/nav_view_record"/>
+
+    <fragment
+        android:id="@+id/nav_modify_record"
+        android:name="com.google.resumemaker.ui.records.ModifyRecordFragment"
+        android:label="Edit record"
+        tools:layout="@layout/fragment_modify_record" />
+
+    <fragment
+        android:id="@+id/nav_view_record"
+        android:name="com.google.resumemaker.ui.records.ViewRecordFragment"
+        android:label="View record"
+        tools:layout="@layout/fragment_modify_record" />
+        <action
+            android:id="@+id/view_record_to_modify_record_fragment"
+            app:destination="@+id/nav_modify_record"/>
+
+    <fragment
+        android:id="@+id/nav_education"
+        android:name="com.google.resumemaker.ui.records.RecordsFragment"
+        android:label="@string/menu_education"
+        tools:layout="@layout/fragment_records" />
+
+    <fragment
+        android:id="@+id/nav_project"
+        android:name="com.google.resumemaker.ui.records.RecordsFragment"
+        android:label="@string/menu_project"
+        tools:layout="@layout/fragment_records" />
+
+</navigation>
