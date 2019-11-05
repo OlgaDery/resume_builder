@@ -51,13 +51,13 @@
     <fragment
         android:id="@+id/nav_modify_record"
         android:name="com.google.resumemaker.ui.records.ModifyRecordFragment"
-        android:label="Edit record"
+        android:label="@string/edit_record_label"
         tools:layout="@layout/fragment_modify_record" />
 
     <fragment
         android:id="@+id/nav_view_record"
         android:name="com.google.resumemaker.ui.records.ViewRecordFragment"
-        android:label="View record"
+        android:label="@string/view_record_label"
         tools:layout="@layout/fragment_modify_record" />
         <action
             android:id="@+id/view_record_to_modify_record_fragment"
@@ -67,12 +67,6 @@
         android:id="@+id/nav_education"
         android:name="com.google.resumemaker.ui.records.RecordsFragment"
         android:label="@string/menu_education"
-        tools:layout="@layout/fragment_records" />
-
-    <fragment
-        android:id="@+id/nav_project"
-        android:name="com.google.resumemaker.ui.records.RecordsFragment"
-        android:label="@string/menu_project"
         tools:layout="@layout/fragment_records" />
 
 </navigation>

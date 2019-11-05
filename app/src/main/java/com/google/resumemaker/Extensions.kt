@@ -9,7 +9,6 @@ import java.util.*
 
 fun String.toDate(format: String): Date {
     val dateFormat = SimpleDateFormat(format, Locale.CANADA)
-    dateFormat.timeZone = TimeZone.getTimeZone("UTC")
     return dateFormat.parse(this)
 }
 
@@ -35,20 +34,20 @@ fun Education.copyClassFields(): Education {
 }
 
 fun Education.toString(res: Resources): String {
-    return header.plus(" at ").plus(organizationName ?: "No institution set").plus("\n")
-        .plus("Faculty: ").plus(facultyName ?: "No faculty set").plus("\n")
-        .plus("Location: ").plus(location ?: "No location set").plus("\n")
-        .plus("Time: ").plus(startDateText ?: "No start date set").plus(" - ").plus(endDateText ?: "No end date").plus("\n")
-        .plus("Description: ").plus(description ?: "No descriprion set").plus("\n")
-        .plus("Certificate level: ").plus(achievementLevel ?: "").plus("\n")
+    return header.plus(" ").plus(res.getString(R.string.at)).plus(" ").plus(organizationName ?: res.getString(R.string.data_not_set)).plus("\n")
+        .plus(res.getString(R.string.faculty_name)).plus(" ").plus(facultyName ?: res.getString(R.string.data_not_set)).plus("\n")
+        .plus(res.getString(R.string.location)).plus(" ").plus(location ?: res.getString(R.string.data_not_set)).plus("\n")
+        .plus(res.getString(R.string.time)).plus(" ").plus(startDateText ?: res.getString(R.string.data_not_set)).plus(" - ").plus(endDateText).plus("\n")
+        .plus(res.getString(R.string.description).plus(" ").plus(description ?: res.getString(R.string.data_not_set)).plus("\n")
+        .plus(res.getString(R.string.edit_edu_achievement)).plus(" ").plus(achievementLevel ?: "").plus("\n"))
 }
 
 fun Position.toString(res: Resources): String {
-    return header.plus(" at ").plus(organizationName ?: "No company set").plus("\n")
-        .plus("Location: ").plus(location ?: "No location set").plus("\n")
-        .plus("Time: ").plus(startDateText ?: "No start date set").plus(" - ").plus(endDateText ?: "No end date").plus("\n")
-        .plus("Description: ").plus(description ?: "No descriprion set").plus("\n")
-        .plus("Achievements: ").plus(achievementLevel ?: "").plus("\n")
+    return header.plus(" ").plus(res.getString(R.string.at)).plus(" ").plus(organizationName ?: res.getString(R.string.data_not_set)).plus("\n")
+        .plus(res.getString(R.string.location)).plus(" ").plus(location ?: res.getString(R.string.data_not_set)).plus("\n")
+        .plus(res.getString(R.string.time)).plus(" ").plus(startDateText ?: res.getString(R.string.data_not_set)).plus(" - ").plus(endDateText).plus("\n")
+        .plus(res.getString(R.string.description)).plus(" ").plus(description ?: res.getString(R.string.data_not_set)).plus("\n")
+        .plus(res.getString(R.string.edit_position_achievement)).plus(" ").plus(achievementLevel ?: "").plus("\n")
 }
 
 fun Position.copyClassFields(): Position {

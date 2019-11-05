@@ -13,8 +13,11 @@
     <string name="menu_position">Positions</string>
     <string name="menu_education">Education</string>
     <string name="menu_project">Projects</string>
+    <string name="edit_record_label">Edit record </string>
+    <string name="view_record_label">View record </string>
 
     <string name="data_not_set">No data set up</string>
+    <string name="fill_up_fields">Please fill up required fields</string>
     <string name="hello_blank_fragment">Hello blank fragment</string>
 
     <!-- common operations -->
@@ -37,24 +40,34 @@
     <string name="edit_email">Enter Email: </string>
     <string name="select_new_date">Select new date: </string>
 
-    <!-- Home -->
+    <!-- Resume -->
     <string name="no_data_found">No data found to show the overview </string>
     <string name="overview_header">Resume overview: </string>
+    <string name="full_name">Full name: </string>
+    <string name="looking_for_position">Looking for position: </string>
+    <string name="experience">Experience: </string>
+    <string name="education">Education: </string>
+    <string name="resume">Resume: </string>
+    <string name="resume_message">Resume built with ResumeBuilder: </string>
 
     <!-- Records -->
-    <string name="no_records_found">No records found, ann the first! </string>
+    <string name="no_records_found">No records found, add the first! </string>
     <string name="edit_project_title">Briefl project description </string>
-    <string name="edit_record_title_general">Your title </string>
-    <string name="edit_position_achievement">Any award names, certificates etc </string>
-    <string name="edit_edu_achievement">Highest education level </string>
-    <string name="edit_organization_edu">Institution name </string>
-    <string name="edit_organization_position">Company name </string>
-    <string name="edit_description">What you worked on</string>
-    <string name="start_date">Start date </string>
-    <string name="end_date">End date </string>
+    <string name="edit_record_title_general">Your title: </string>
+    <string name="edit_position_achievement">Achievements:</string>
+    <string name="edit_edu_achievement">Highest education level: </string>
+    <string name="edit_organization_edu">Institution name: </string>
+    <string name="edit_organization_position">Company name: </string>
+    <string name="edit_description">What you worked on?</string>
+    <string name="start_date">Start date: </string>
+    <string name="end_date">End date: </string>
     <string name="faculty_name">Faculty name: </string>
     <string name="location">Location: </string>
+    <string name="description">Description: </string>
     <string name="view_record">View record </string>
+    <string name="time">Time: </string>
+    <string name="at">at </string>
+    <string name="now">now</string>
 
 
 </resources>

@@ -8,35 +8,39 @@
         <variable name="recordsExist" type="Boolean" />
     </data>
 
-    <LinearLayout
+    <FrameLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical"
-        android:padding="15dp">
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:textSize="24sp"
-            android:textStyle="bold"
-            android:visibility="@{recordsExist ? View.GONE : View.VISIBLE}"
-            android:text="@string/no_records_found"/>
-
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/records_recycler_view"
-            android:layout_marginTop="10dp"
-            android:layout_marginBottom="10dp"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"/>
+        android:layout_height="match_parent">
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/add_record_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="end"
             android:src="@drawable/ic_add"
             android:onClick="@{(view) -> fragment.onAddButtonClick()}"
-            android:layout_margin="10dp"/>
+            android:layout_margin="@dimen/margin_10dp"/>
 
-    </LinearLayout>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:textSize="20sp"
+            android:visibility="@{recordsExist ? View.GONE : View.VISIBLE}"
+            android:text="@string/no_records_found"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:padding="@dimen/padding_15dp">
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/records_recycler_view"
+                android:layout_marginTop="@dimen/margin_10dp"
+                android:layout_marginBottom="@dimen/margin_10dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
+        </LinearLayout>
+    </FrameLayout>
 </layout>

@@ -7,6 +7,7 @@ import androidx.lifecycle.ViewModelProviders
 import com.google.resumemaker.MainViewModel
 
 abstract class ViewItemBaseFragment : Fragment() {
+    //parent class for the fragments that show up the single entity related data (Profile, BaseRecord etc)
 
     lateinit var viewModel: MainViewModel
 

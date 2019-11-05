@@ -1,29 +1,27 @@
 package com.google.resumemaker.providers
 
-import android.content.Context
 import com.google.crypto.tink.Aead
-import com.google.crypto.tink.Config
 import com.google.crypto.tink.KeysetHandle
 import com.google.crypto.tink.aead.AeadFactory
 import com.google.crypto.tink.aead.AeadKeyTemplates
+import android.content.Context
+import com.google.crypto.tink.Config
 import com.google.crypto.tink.config.TinkConfig
-import com.google.crypto.tink.integration.android.AndroidKeysetManager
 import java.io.IOException
 import java.security.GeneralSecurityException
-import java.security.SecureRandom
+import com.google.crypto.tink.integration.android.AndroidKeysetManager
+import com.google.crypto.tink.subtle.Base64
+import java.io.UnsupportedEncodingException
 
-class EncryptionImpl: EncryptionProvider {
-
-    companion object {
-        private const val KEYSET_NAME = "TinkEncryptionProvider"
-        private const val MASTER_KEY_URI = "android-keystore://tink_encryption_provider_master_key"
-    }
+class EncryptionImpl(val context: Context) : EncryptionProvider {
 
     private val aead: Aead
-    private val context: Context
+    private val PREF_FILE_NAME = "hello_world_pref"
+    private val TINK_KEYSET_NAME = "hello_world_keyset"
+    private val MASTER_KEY_URI = "android-keystore://hello_world_master_key"
+    private val EMPTY_ASSOCIATED_DATA = ByteArray(0)
 
-    constructor(context: Context) {
-        this.context = context
+    init {
         try {
             Config.register(TinkConfig.LATEST)
             aead = AeadFactory.getPrimitive(getOrGenerateNewKeysetHandle())
@@ -32,43 +30,62 @@ class EncryptionImpl: EncryptionProvider {
         } catch (e: IOException) {
             throw RuntimeException(e)
         }
-
     }
 
     @Throws(IOException::class, GeneralSecurityException::class)
     private fun getOrGenerateNewKeysetHandle(): KeysetHandle {
         return AndroidKeysetManager.Builder()
-            .withSharedPref(context, KEYSET_NAME, "")//PreferencesKeys.TINK_ENCRYPTION_KEY.value
+            .withSharedPref(context, TINK_KEYSET_NAME, PREF_FILE_NAME)
             .withKeyTemplate(AeadKeyTemplates.AES256_GCM)
             .withMasterKeyUri(MASTER_KEY_URI)
             .build()
             .keysetHandle
     }
 
-    //region EncryptionProvider
-
-    override fun encrypt(data: String): Pair<String?, String?> {
+    override fun encrypt(data: String): String? {
         try {
-            val randomSecureRandom = SecureRandom()
-            val iv = ByteArray(32)
-            randomSecureRandom.nextBytes(iv)
-            val encrypted = aead.encrypt(data.toByteArray(), iv)
-            return Pair(null, null)//(encrypted.base64Encode(), iv.base64Encode())
-        } catch (e: Exception) {
-            e.printStackTrace()
-        }
-        return Pair(null, null)
-    }
+            val plaintext = data.toByteArray()
+            val ciphertext = aead.encrypt(plaintext, EMPTY_ASSOCIATED_DATA)
+            return base64Encode(ciphertext)
 
-    override fun decrypt(data: String, iv: String): String? {
-        try {
-            val decrypted = ""//aead.decrypt(data.base64Decode(), iv.base64Decode())
-            return null//String(decrypted)
-        } catch (e: Exception) {
-            e.printStackTrace()
+        } catch (e: UnsupportedEncodingException) {
+            println(e.printStackTrace())
+
+        } catch (e: GeneralSecurityException) {
+            println(e.printStackTrace())
+
+        } catch (e: IllegalArgumentException) {
+            println(e.printStackTrace())
+
         }
         return null
     }
 
-    //endregion
+    override fun decrypt(data: String): String? {
+        try {
+            val cipherText = base64Decode(data)
+            val plaintext = aead.decrypt(cipherText, EMPTY_ASSOCIATED_DATA)
+
+            return String(plaintext)
+
+        } catch (e: UnsupportedEncodingException) {
+            println(e.printStackTrace())
+
+        } catch (e: GeneralSecurityException) {
+            println(e.printStackTrace())
+
+        } catch (e: IllegalArgumentException) {
+            println(e.printStackTrace())
+        }
+
+        return null
+    }
+
+    private fun base64Encode(input: ByteArray): String {
+        return Base64.encodeToString(input, Base64.DEFAULT)
+    }
+
+    private fun base64Decode(input: String): ByteArray {
+        return Base64.decode(input, Base64.DEFAULT)
+    }
 }

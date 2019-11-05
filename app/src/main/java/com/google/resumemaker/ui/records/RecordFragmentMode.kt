@@ -5,7 +5,8 @@ import com.google.resumemaker.R
 import com.google.resumemaker.entity.BaseRecord
 import com.google.resumemaker.entity.Education
 import java.lang.reflect.Type
-
+//This class helps to configure the views for the implementations of BaseRecord class (to set up the headers,
+// visible fields etc).
 class RecordFragmentMode (val modeName: String, val label: String, val data: MutableList<out BaseRecord>,
                           val type: Type, val res: Resources) {
 

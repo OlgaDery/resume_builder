@@ -39,6 +39,9 @@ class RecordsFragment : Fragment() {
 
         val destination = Navigation.findNavController(activity!!, R.id.nav_host_fragment).currentDestination?.label
 
+        //Setting up the fragment mode depending on the selected menu item. RecordFragmentMode class contains the data
+        //determining how to configure the views for the specific records (depending on their concrete class).
+
         if (viewModel.mode == null || destination != viewModel.mode!!.label) {
             var mode: RecordFragmentMode? = null
 
@@ -64,11 +67,13 @@ class RecordsFragment : Fragment() {
         }
 
         if (viewModel.mode!!.data.isNotEmpty()) {
-
             val viewDataList = mutableListOf<ViewData>()
             viewModel.mode!!.data.forEach {
-                viewDataList.add(ViewData(text = it.description, headerText = it.header) { data, header, view ->
-                    onRecyclerViewItemClick(data!!, header!!, view)
+                viewDataList.add(ViewData(text = it.organizationName, headerText = it.header,
+
+                    //assuming that this combination is unique
+                    id = it.description!!.plus(it.organizationName).plus(it.startDate)) { data ->
+                    onRecyclerViewItemClick(data!!)
                 })
             }
             adapter!!.items = viewDataList
@@ -76,17 +81,16 @@ class RecordsFragment : Fragment() {
         }
     }
 
-    //TODO add method to the parent fragment
     fun onAddButtonClick() {
         val navController = Navigation.findNavController(activity!!, R.id.nav_host_fragment)
         navController.navigate(R.id.record_to_modify_record_fragment)
-        viewModel.setUpNewRecord()
+        viewModel.recordToEditOrCreate = viewModel.setUpNewRecord(mode = viewModel.mode!!)
     }
 
-    fun onRecyclerViewItemClick(data: String, header: String, view: View) {
+    fun onRecyclerViewItemClick(data: String) {
         viewModel.mode!!.data.forEach {
-            if (data == it.description) {
-                viewModel.setUpNewRecord(it)
+            if (data == it.description!!.plus(it.organizationName).plus(it.startDate)) {
+                viewModel.recordToEditOrCreate = viewModel.setUpNewRecord(record = it, mode = viewModel.mode!!)
                 val navController = Navigation.findNavController(activity!!, R.id.nav_host_fragment)
                 navController.navigate(R.id.record_to_view_record_fragment)
                 return
@@ -96,7 +100,6 @@ class RecordsFragment : Fragment() {
 
     companion object {
         const val EDU_MODE = "education modeName"
-        const val PROJECT_MODE = "education modeName"
         const val POSITION_MODE = "position modeName"
     }
 }

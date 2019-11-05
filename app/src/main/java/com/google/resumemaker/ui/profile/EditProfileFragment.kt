@@ -3,14 +3,13 @@ package com.google.resumemaker.ui.profile
 
 import android.app.DatePickerDialog
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.databinding.DataBindingUtil
-import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.Navigation
-import com.google.resumemaker.MainViewModel
+import com.google.resumemaker.MainActivity
 import com.google.resumemaker.R
 import com.google.resumemaker.databinding.FragmentEditProfileBinding
 import com.google.resumemaker.toString
@@ -35,6 +34,10 @@ class EditProfileFragment : EditItemBaseFragment() {
         if (buttonView.tag == getString(R.string.cancel)) {
             viewModel.updateProfileOrCancelUpdate(true)
         } else {
+            if (!viewModel.resume!!.profile.setUp) {
+                Toast.makeText(activity, getString(R.string.fill_up_fields), Toast.LENGTH_LONG).show()
+                return
+            }
             viewModel.updateProfileOrCancelUpdate(false)
         }
         val navController = Navigation.findNavController(activity!!, R.id.nav_host_fragment)
@@ -49,11 +52,8 @@ class EditProfileFragment : EditItemBaseFragment() {
         val timePickerDialog = DatePickerDialog(activity!!, DatePickerDialog.OnDateSetListener()
         { view, val1, val2, val3 ->
 
-            //TODO fix date handling
-            System.out.println(" "+ val1 + " " + val2 + " " + val3)
             calendar.set(val1, val2, val3)
-
-            dob_edit_text.setText(calendar.time.toString("yyyy-mm-dd"))
+            dob_edit_text.setText(calendar.time.toString(MainActivity.DATE_FORMAT))
 
         }, year, mm, dom)
         timePickerDialog.show()

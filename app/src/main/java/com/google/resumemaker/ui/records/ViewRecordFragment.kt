@@ -32,7 +32,7 @@ class ViewRecordFragment : ViewItemBaseFragment() {
     }
 
     fun oDeleteButtonClick() {
-        viewModel.addUpdateRemoveRecord(viewModel.recordToEditOrCreate!!, viewModel.mode!!, false)
+        viewModel.addOrRemoveRecord(viewModel.recordToEditOrCreate!!, viewModel.mode!!, false, true)
         val navController = Navigation.findNavController(activity!!, R.id.nav_host_fragment)
         navController.popBackStack()
     }

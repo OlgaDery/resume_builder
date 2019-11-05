@@ -1,19 +1,12 @@
 package com.google.resumemaker.ui
 
-
-import android.app.DatePickerDialog
 import android.os.Bundle
 import androidx.fragment.app.Fragment
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
 import androidx.lifecycle.ViewModelProviders
-import com.google.android.material.textfield.TextInputEditText
 import com.google.resumemaker.MainViewModel
 
-import com.google.resumemaker.R
-import java.util.*
-
+//parent class for the fragments that show up the edit forms to update single entity
 abstract class EditItemBaseFragment : Fragment() {
 
     lateinit var viewModel: MainViewModel

@@ -3,28 +3,26 @@ package com.google.resumemaker.ui.records
 
 import android.app.DatePickerDialog
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.databinding.DataBindingUtil
-import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.Navigation
-import com.google.resumemaker.MainViewModel
+import com.google.resumemaker.MainActivity
 
 import com.google.resumemaker.R
 import com.google.resumemaker.databinding.FragmentModifyRecordBinding
+import com.google.resumemaker.toString
 import com.google.resumemaker.ui.EditItemBaseFragment
 import kotlinx.android.synthetic.main.fragment_modify_record.*
 import java.util.*
 
 class ModifyRecordFragment : EditItemBaseFragment() {
 
-    // private lateinit var viewModel: MainViewModel
     private lateinit var binding: FragmentModifyRecordBinding
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-      //  viewModel = ViewModelProviders.of(activity!!).get(MainViewModel::class.java)
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_modify_record, container, false)
         binding.lifecycleOwner = activity
         binding.fragment = this
@@ -36,9 +34,14 @@ class ModifyRecordFragment : EditItemBaseFragment() {
 
     override fun onEditFormButtonClick(buttonView: View) {
         if (buttonView.tag == getString(R.string.save)) {
-            viewModel.addUpdateRemoveRecord(viewModel.recordToEditOrCreate!!, viewModel.mode!!, true)
+            if (viewModel.recordToEditOrCreate!!.setUp) {
+                viewModel.addOrRemoveRecord(viewModel.recordToEditOrCreate!!, viewModel.mode!!, true, false)
+            } else {
+                Toast.makeText(activity, getString(R.string.fill_up_fields), Toast.LENGTH_LONG).show()
+                return
+            }
         } else {
-            viewModel.cancelCollectionUpdate(viewModel.mode!!, viewModel.copyOfRecordToModify!!)
+            viewModel.recordToEditOrCreate = viewModel.cancelCollectionUpdate(viewModel.mode!!, viewModel.copyOfRecordToModify!!)
         }
         val navController = Navigation.findNavController(activity!!, R.id.nav_host_fragment)
         navController.popBackStack()
@@ -52,16 +55,12 @@ class ModifyRecordFragment : EditItemBaseFragment() {
         val timePickerDialog = DatePickerDialog(activity!!, DatePickerDialog.OnDateSetListener()
         { view, val1, val2, val3 ->
 
-            //TODO fix date handling
-            System.out.println(" "+ val1 + " " + val2 + " " + val3)
             calendar.set(val1, val2, val3)
             if (clickedView.tag.toString() == resources.getString(R.string.start_date)) {
-                startdate_edit_text.setText(val1.toString().plus("-").plus((val2+1).toString()).plus("-").plus(val3.toString()))
-
+                startdate_edit_text.setText(calendar.time.toString(MainActivity.DATE_FORMAT))
             } else {
-                end_date_edit_text.setText(val1.toString().plus("-").plus((val2+1).toString()).plus("-").plus(val3.toString()))
+                end_date_edit_text.setText(calendar.time.toString(MainActivity.DATE_FORMAT))
             }
-            //calendar.time.toString("yyyy-mm-dd")
 
         }, year, mm, dom)
         timePickerDialog.show()

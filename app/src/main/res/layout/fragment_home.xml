@@ -3,52 +3,75 @@
     xmlns:android="http://schemas.android.com/apk/res/android">
     <data>
         <import type="android.view.View"/>
-        <variable name="setUpCompleted" type="Boolean" />
         <variable name="resumeFound" type="Boolean" />
+        <variable name="fragment" type="com.google.resumemaker.ui.home.HomeFragment" />
         <variable name="resume" type="com.google.resumemaker.entity.Resume" />
     </data>
 
-    <LinearLayout
+    <FrameLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:padding="15dp"
-        android:orientation="vertical">
+        android:layout_height="match_parent"
+        android:padding="@dimen/padding_15dp">
 
-        <ScrollView
+        <TextView
+            android:id="@+id/no_resume_message"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:visibility="@{!resumeFound ? View.GONE : View.VISIBLE}">
+            android:textSize="20sp"
+            android:layout_gravity="center"
+            android:text="@string/no_data_found"
+            android:visibility="@{resumeFound ? View.GONE : View.VISIBLE}"/>
 
-            <LinearLayout
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <ScrollView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical">
+                android:visibility="@{!resumeFound ? View.GONE : View.VISIBLE}">
 
-                <TextView
+                <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:textSize="20dp"
-                    android:text="@string/no_data_found"
-                    android:visibility="@{resumeFound ? View.GONE : View.VISIBLE}"/>
+                    android:orientation="vertical">
 
-                <TextView
-                    android:id="@+id/header"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="5dp"
-                    android:text="@string/overview_header"
-                    android:textStyle="bold"
-                    android:textSize="22dp" />
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
 
-                <TextView
-                    android:id="@+id/full_name_text_view"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="5dp"
-                    android:text="@{resume.toString()}"
-                    android:textSize="16dp" />
+                        <TextView
+                            android:id="@+id/header"
+                            android:layout_weight="0.5"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_margin="5dp"
+                            android:text="@string/overview_header"
+                            android:textStyle="bold"
+                            android:textSize="22sp" />
 
-            </LinearLayout>
-        </ScrollView>
-    </LinearLayout>
+                        <com.google.android.material.floatingactionbutton.FloatingActionButton
+                            android:id="@+id/share_button"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:src="@drawable/ic_menu_share"
+                            android:layout_gravity="end"
+                            android:onClick="@{(view) -> fragment.onShareButtonClick()}" />
+                    </LinearLayout>
+
+                    <TextView
+                        android:id="@+id/full_resume_text_view"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="@dimen/margin_5dp"
+                        android:text="@{resume.toString()}"
+                        android:textSize="16sp" />
+
+                </LinearLayout>
+            </ScrollView>
+
+        </LinearLayout>
+    </FrameLayout>
 </layout>

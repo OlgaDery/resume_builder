@@ -3,8 +3,7 @@ package com.google.resumemaker.di
 import android.content.Context
 import androidx.annotation.NonNull
 import com.google.gson.Gson
-import com.google.resumemaker.providers.PreferencesImpl
-import com.google.resumemaker.providers.PreferencesProvider
+import com.google.resumemaker.providers.*
 import dagger.Module
 import dagger.Provides
 import javax.inject.Singleton
@@ -23,6 +22,13 @@ class AppModule (@NonNull val context: Context) {
     fun accessPreferences(): PreferencesProvider {
         return PreferencesImpl(context)
     }
+
+    @Provides
+    @Singleton
+    fun accessFileStore(): FileSystemProvider {
+        return FileSystemImpl()
+    }
+
 
     @Provides
     @Singleton

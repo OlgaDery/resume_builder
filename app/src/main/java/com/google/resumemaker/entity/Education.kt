@@ -2,7 +2,7 @@ package com.google.resumemaker.entity
 
 import java.util.*
 
-data class Education(val id: String = UUID.randomUUID().toString()): BaseRecord() {
+data class Education(val id: String = UUID.randomUUID().toString(), val profileID: String): BaseRecord() {
 
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
@@ -17,8 +17,4 @@ data class Education(val id: String = UUID.randomUUID().toString()): BaseRecord(
         val result = id.hashCode()
         return result
     }
-
-//    override fun toString(): String {
-//
-//    }
 }

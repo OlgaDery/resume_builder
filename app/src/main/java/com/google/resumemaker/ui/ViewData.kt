@@ -1,28 +1,13 @@
 package com.google.resumemaker.ui
 
-import android.view.View
 import androidx.databinding.BaseObservable
-import androidx.databinding.Bindable
-import com.google.resumemaker.BR
 
-class ViewData (var text: String?, val headerText: String? = null,
-                val onUserInteraction: (data: String?, header: String?, view: View) -> Unit): BaseObservable() {
+//the class to represent some fields of entity classes in the recycler view items
+class ViewData (val id: String, var text: String?, val headerText: String? = null,
+                val onUserInteraction: (data: String?) -> Unit): BaseObservable() {
 
-//    var userInput: String? = null
-//        @Bindable get() {
-//            if (field == null) {
-//                return text
-//            }
-//            return field
-//        }
-//        set(value) {
-//            if (value != field) {
-//                field = value
-//                notifyPropertyChanged(BR.userInput)
-//            }
-//        }
 
-    fun onClick(view: View, header: String?, data: String?) {
-        onUserInteraction(data, header, view)
+    fun onClick(data: String?) {
+        onUserInteraction(data)
     }
 }

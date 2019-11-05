@@ -3,10 +3,12 @@ package com.google.resumemaker.entity
 import androidx.databinding.BaseObservable
 import androidx.databinding.Bindable
 import com.google.resumemaker.BR
+import com.google.resumemaker.MainActivity
 import com.google.resumemaker.toDate
 import com.google.resumemaker.toString
 import java.util.*
 
+//Base class to be implemented by different record classes (Education, Position and other possible classes)
 abstract class BaseRecord: BaseObservable() {
 
     @get:Bindable
@@ -54,17 +56,17 @@ abstract class BaseRecord: BaseObservable() {
         }
 
     var startDate: Date? = null
-    var startDateText: String = ""
+    var startDateText: String? = null
         @Bindable get() {
             if (startDate != null) {
-                field = startDate!!.toString("yyyy-mm-dd")
+                field = startDate!!.toString("MM/dd/yy")
             }
             return field
         }
         set(value) {
             if (value != field) {
                 field = value
-                startDate = field.toDate("yyyy-mm-dd")
+                startDate = field?.toDate("MM/dd/yy")
                 notifyPropertyChanged(BR.startDateText)
             }
         }
@@ -72,14 +74,14 @@ abstract class BaseRecord: BaseObservable() {
     var endDateText: String = "now"
         @Bindable get() {
             if (endDate != null) {
-                field = endDate!!.toString("yyyy-mm-dd")
+                field = endDate!!.toString(MainActivity.DATE_FORMAT)
             }
             return field
         }
         set(value) {
             if (value != field) {
                 field = value
-                endDate = field.toDate("yyyy-mm-dd")
+                endDate = field.toDate(MainActivity.DATE_FORMAT)
                 notifyPropertyChanged(BR.endDateText)
             }
         }
@@ -100,6 +102,11 @@ abstract class BaseRecord: BaseObservable() {
                 field = value
                 notifyPropertyChanged(BR.organizationName)
             }
+        }
+
+    val setUp: Boolean
+        get() {
+           return organizationName != null && header != null && startDate!= null && description != null
         }
 
 }

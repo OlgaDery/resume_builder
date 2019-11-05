@@ -1,0 +1,73 @@
+<resources>
+    <string name="app_name">ResumeMaker_fr</string>
+    <string name="navigation_drawer_open">Open navigation drawer_fr</string>
+    <string name="navigation_drawer_close">Close navigation drawer_fr</string>
+    <string name="nav_header_title">Android Studio_fr</string>
+    <string name="nav_header_subtitle">android.studio@android.com_fr</string>
+    <string name="nav_header_desc">Navigation header_fr</string>
+    <string name="action_settings">Settings_fr</string>
+
+    <string name="menu_home">Home_fr</string>
+    <string name="menu_profile">Profile_fr</string>
+    <string name="profile_label">Edit Profile_fr</string>
+    <string name="menu_position">Positions_fr</string>
+    <string name="menu_education">Education_fr</string>
+    <string name="menu_project">Projects_fr</string>
+    <string name="edit_record_label">Edit record_fr </string>
+    <string name="view_record_label">View record_fr </string>
+
+    <string name="data_not_set">No data set up_fr</string>
+    <string name="fill_up_fields">Please fill up required fields_fr</string>
+    <string name="hello_blank_fragment">Hello blank fragment_fr</string>
+
+    <!-- common operations -->
+    <string name="save">save</string>
+    <string name="edit">edit</string>
+    <string name="cancel">cancel</string>
+    <string name="delete">delete</string>
+
+    <!-- Profile -->
+    <string name="first_name">First name_fr: </string>
+    <string name="last_name">Last name_fr: </string>
+    <string name="dob">Date of birth_fr: </string>
+    <string name="target_position">Target position_fr: </string>
+    <string name="email">Email_fr: </string>
+
+    <string name="edit_first_name">Enter First Name_fr: </string>
+    <string name="edit_last_name">Enter Last Name_fr: </string>
+    <string name="edit_dob">Enter Date of Birth_fr: </string>
+    <string name="edit_target_position">Enter Target Position_fr: </string>
+    <string name="edit_email">Enter Email_fr: </string>
+    <string name="select_new_date">Select new date_fr: </string>
+
+    <!-- Resume -->
+    <string name="no_data_found">No data found to show the overview </string>
+    <string name="overview_header">Resume overview: </string>
+    <string name="full_name">Full name: </string>
+    <string name="looking_for_position">Looking for position: </string>
+    <string name="experience">Experience: </string>
+    <string name="education">Education: </string>
+    <string name="resume">Resume: </string>
+    <string name="resume_message">Resume built with ResumeBuilder: </string>
+
+    <!-- Records -->
+    <string name="no_records_found">No records found, add the first! </string>
+    <string name="edit_project_title">Briefl project description </string>
+    <string name="edit_record_title_general">Your title: </string>
+    <string name="edit_position_achievement">Achievements:</string>
+    <string name="edit_edu_achievement">Highest education level: </string>
+    <string name="edit_organization_edu">Institution name: </string>
+    <string name="edit_organization_position">Company name: </string>
+    <string name="edit_description">What you worked on?</string>
+    <string name="start_date">Start date: </string>
+    <string name="end_date">End date: </string>
+    <string name="faculty_name">Faculty name: </string>
+    <string name="location">Location: </string>
+    <string name="description">Description: </string>
+    <string name="view_record">View record </string>
+    <string name="time">Time: </string>
+    <string name="at">at </string>
+    <string name="now">now</string>
+
+
+</resources>

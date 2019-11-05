@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
         <import type="android.view.View"/>
@@ -10,13 +10,16 @@
     </data>
 
     <ScrollView
+        android:id="@+id/edit_profile_scroll_view"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
         <LinearLayout
+            android:id="@+id/edit_profile_wrapper_layout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
+            android:padding="@dimen/padding_15dp"
             tools:context=".ui.profile.EditProfileFragment">
 
             <LinearLayout
@@ -24,7 +27,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
-                android:padding="5dp">
+                android:layout_marginTop="@dimen/padding_5dp"
+                android:layout_marginBottom="@dimen/padding_5dp">
 
                 <TextView
                     android:id="@+id/edit_first_name_header"
@@ -42,6 +46,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:inputType="text"
+                        app:error="@{profile.firstName == null ? @string/data_not_set : null}"
                         android:text="@={profile.firstName}"/>
 
                 </com.google.android.material.textfield.TextInputLayout>
@@ -52,7 +57,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
-                android:padding="5dp">
+                android:layout_marginTop="@dimen/padding_5dp"
+                android:layout_marginBottom="@dimen/padding_5dp">
 
                 <TextView
                     android:id="@+id/edit_last_name_header"
@@ -70,6 +76,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:inputType="text"
+                        app:error="@{profile.lastName == null ? @string/data_not_set : null}"
                         android:text="@={profile.lastName}"/>
 
                 </com.google.android.material.textfield.TextInputLayout>
@@ -80,7 +87,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
-                android:padding="5dp">
+                android:layout_marginTop="@dimen/padding_5dp"
+                android:layout_marginBottom="@dimen/padding_5dp">
 
                 <TextView
                     android:id="@+id/edit_dob_header"
@@ -98,12 +106,14 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:inputType="text"
+                        android:enabled="false"
                         android:text="@={profile.dob}"/>
 
                 </com.google.android.material.textfield.TextInputLayout>
             </LinearLayout>
 
             <Button
+                android:id="@+id/set_date_button"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:onClick="@{(view) -> fragment.onSelectNewDateClick(view)}"
@@ -114,7 +124,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
-                android:padding="5dp">
+                android:layout_marginTop="@dimen/padding_5dp"
+                android:layout_marginBottom="@dimen/padding_5dp">
 
                 <TextView
                     android:id="@+id/edit_email_header"
@@ -132,6 +143,8 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:inputType="text"
+                        android:imeOptions="actionNext"
+                        app:error="@{profile.email == null ? @string/data_not_set : null}"
                         android:text="@={profile.email}"/>
 
                 </com.google.android.material.textfield.TextInputLayout>
@@ -142,7 +155,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
-                android:padding="5dp">
+                android:layout_marginTop="@dimen/padding_5dp"
+                android:layout_marginBottom="@dimen/padding_5dp">
 
                 <TextView
                     android:id="@+id/edit_position_header"
@@ -168,27 +182,29 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:gravity="end"
                 android:orientation="horizontal">
 
                 <com.google.android.material.floatingactionbutton.FloatingActionButton
+                    android:id="@+id/save_profile_button"
                     android:tag="@string/save"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_margin="5dp"
+                    android:layout_margin="@dimen/margin_5dp"
                     android:onClick="@{(view) -> fragment.onEditFormButtonClick(view)}"
                     android:src="@drawable/ic_save"/>
 
                 <com.google.android.material.floatingactionbutton.FloatingActionButton
+                    android:id="@+id/cancel_edit_button"
                     android:tag="@string/cancel"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_margin="5dp"
+                    android:layout_margin="@dimen/margin_5dp"
                     android:onClick="@{(view) -> fragment.onEditFormButtonClick(view)}"
                     android:src="@drawable/ic_cancel"/>
 
 
             </LinearLayout>
-
         </LinearLayout>
     </ScrollView>
 
