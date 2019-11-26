@@ -65,4 +65,14 @@ data class Profile (val id: String = UUID.randomUUID().toString()): BaseObservab
             return dateOfBirth != null && email != null && firstName != null && lastName != null
         }
 
+    fun copyClassFields(): Profile {
+        val newClass = this.copy()
+        newClass.targetPosition = this.targetPosition
+        newClass.lastName = this.lastName
+        newClass.firstName = this.firstName
+        newClass.email = this.email
+        newClass.dateOfBirth = this.dateOfBirth
+        return newClass
+    }
+
 }

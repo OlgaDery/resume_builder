@@ -1,12 +1,15 @@
 package com.google.resumemaker
 
 import android.content.Context
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.google.gson.Gson
 import com.google.resumemaker.entity.*
 import com.google.resumemaker.providers.FileSystemImpl
 import com.google.resumemaker.providers.PreferencesImpl
+import com.google.resumemaker.providers.PreferencesProvider
 import com.google.resumemaker.ui.records.RecordFragmentMode
 import com.google.resumemaker.ui.records.RecordsFragment
 import kotlinx.coroutines.Dispatchers
@@ -21,7 +24,7 @@ class MainViewModel: ViewModel() {
         const val RESUME_PREF_KEY = "resume"
     }
     @Inject
-    lateinit var preferences: PreferencesImpl
+    lateinit var preferences: PreferencesProvider
 
     @Inject
     lateinit var fileSystem: FileSystemImpl
@@ -40,7 +43,11 @@ class MainViewModel: ViewModel() {
 
     var recordToEditOrCreate: BaseRecord? = null
 
-    val file = MutableLiveData<File>()
+    private val _file = MutableLiveData<File>()
+    val file: LiveData<File>
+        get() {
+            return _file
+        }
 
     fun setUpNewRecord(record: BaseRecord? = null, mode: RecordFragmentMode): BaseRecord? {
 
@@ -71,9 +78,17 @@ class MainViewModel: ViewModel() {
         return null
     }
 
-    val setUpCompleted = MutableLiveData<Boolean>()
+    private val setUpCompleted: MutableLiveData<Boolean> by lazy {
+        MutableLiveData<Boolean>().also {
+            setUpProfile()
+        }
+    }
 
-    fun setUpProfile() {
+    fun setUp(): LiveData<Boolean> {
+        return setUpCompleted
+    }
+
+    private fun setUpProfile() {
         viewModelScope.launch(Dispatchers.IO) {
             resume = preferences.getValue(key = RESUME_PREF_KEY, type = Resume::class.java) ?: Resume(Profile())
             resume!!.res = appContext.resources
@@ -103,7 +118,6 @@ class MainViewModel: ViewModel() {
             return
         }
         if (shouldAdd) {
-
             mode.data as MutableList<BaseRecord>
             if (mode.data.isEmpty()) {
                 mode.data.add(record)
@@ -163,7 +177,7 @@ class MainViewModel: ViewModel() {
     fun shareFile (data: String) {
         viewModelScope.launch(Dispatchers.IO) {
             val newFile = fileSystem.writeStringToFile(appContext, data.toByteArray(), "resume.txt")
-            file.postValue(newFile)
+            _file.postValue(newFile)
         }
     }
 

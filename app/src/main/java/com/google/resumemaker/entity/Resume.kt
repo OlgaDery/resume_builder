@@ -2,7 +2,6 @@ package com.google.resumemaker.entity
 
 import android.content.res.Resources
 import com.google.resumemaker.R
-import com.google.resumemaker.toString
 import java.lang.StringBuilder
 
 //Class accumulating the data of other entity classes. "ToString" method represents the nicely-formatted data that can be saved

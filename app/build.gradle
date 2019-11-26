@@ -31,8 +31,13 @@ android {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
+        debug {
+            applicationIdSuffix ".debug"
+            debuggable true
+        }
     }
 }
+
 
 dependencies {
 
@@ -60,6 +65,7 @@ dependencies {
     annotationProcessor 'com.google.dagger:dagger-android-processor:2.17'
     annotationProcessor 'com.google.dagger:dagger-compiler:2.17'
     kapt "com.google.dagger:dagger-compiler:2.17"
+    testAnnotationProcessor 'com.google.dagger:dagger-compiler:2.17'
     annotationProcessor 'androidx.room:room-compiler:2.2.1'
     kapt "androidx.room:room-compiler:2.2.1"
 

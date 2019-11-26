@@ -1,5 +1,4 @@
 package com.google.resumemaker
-
 import com.google.resumemaker.entity.*
 import com.google.resumemaker.ui.records.RecordFragmentMode
 import com.google.resumemaker.ui.records.RecordsFragment
@@ -11,6 +10,7 @@ import org.junit.runner.RunWith
 import org.mockito.junit.MockitoJUnitRunner
 import org.mockito.Mockito.`when`
 import io.mockk.*
+import org.mockito.MockitoAnnotations
 
 
 @RunWith(MockitoJUnitRunner::class)
@@ -22,11 +22,11 @@ class MainViewModelTest: BaseUnitTest() {
 
     @Before
     fun setup () {
+        MockitoAnnotations.initMocks(this)
+        viewModel = MainViewModel()
+        viewModel.preferences = preferences
         `when`(mockResources.getString(R.string.menu_education)).thenReturn("Education")
         `when`(mockResources.getString(R.string.menu_position)).thenReturn("Positions")
-
-        viewModel = MainViewModel()
-
         val resume = Resume(Profile())
         viewModel.resume = resume
 
@@ -121,19 +121,24 @@ class MainViewModelTest: BaseUnitTest() {
         }
     }
 
+
     @Test
-    //Using the mockk library to test kotlin coroutines
-    fun getsetUpProfile_isRunning() {
-        val viewModel = mockk<MainViewModel>()
-        coEvery {
-            viewModel.setUpProfile()
-        }just Runs
-        viewModel.setUpProfile()
-        coVerify {
-            viewModel.setUpProfile()
-        }
+    fun test_PreferencesGetValue() {
+        val value = viewModel.preferences.getValue<Resume>("", Resume::class.java)
+        assertNull(value)
     }
 
+    @Test
+    fun test_updateProfileOrCancelUpdate_update() {
+        viewModel.resume!!.profile.firstName = "AAA"
+        viewModel.updateProfileOrCancelUpdate(false)
+        assertTrue(viewModel.resume!!.profile.firstName == "AAA")
+    }
 
-
+    @Test
+    fun test_updateProfileOrCancelUpdate_Cancel() {
+        viewModel.resume!!.profile.firstName = "AAA"
+        viewModel.updateProfileOrCancelUpdate(false)
+        assertTrue(viewModel.resume!!.profile.firstName == "AAA")
+    }
 }

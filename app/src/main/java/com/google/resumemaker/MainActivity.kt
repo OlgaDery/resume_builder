@@ -13,6 +13,7 @@ import androidx.lifecycle.ViewModelProviders
 import com.google.resumemaker.di.AppComponent
 import com.google.resumemaker.di.AppModule
 import com.google.resumemaker.di.DaggerAppComponent
+import com.google.resumemaker.providers.PreferencesImpl
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.app_bar_main.*
 
@@ -41,17 +42,14 @@ class MainActivity : AppCompatActivity() {
 
         viewModel = ViewModelProviders.of(this).get(MainViewModel::class.java)
         component.inject(viewModel)
-        component.inject(viewModel.preferences)
+        component.inject(viewModel.preferences as PreferencesImpl)
 
-        viewModel.setUpCompleted.observe(this, Observer {
+        viewModel.setUp().observe(this, Observer {
             if (savedInstanceState == null) {
                 // only if activity is not recreated
                 navController.navigate(R.id.set_up_to_home_fragment)
             }
         })
-        if (viewModel.resume == null) {
-            viewModel.setUpProfile()
-        }
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {

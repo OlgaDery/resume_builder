@@ -24,10 +24,11 @@ class ModifyRecordFragment : EditItemBaseFragment() {
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_modify_record, container, false)
-        binding.lifecycleOwner = activity
         binding.fragment = this
+        binding.lifecycleOwner = activity!!
         binding.mode = viewModel.mode
         binding.record = viewModel.recordToEditOrCreate
+
         viewModel.createCopyOfRecord(viewModel.recordToEditOrCreate!!)
         return binding.root
     }

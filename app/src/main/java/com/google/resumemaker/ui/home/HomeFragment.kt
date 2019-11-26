@@ -52,7 +52,6 @@ class HomeFragment : Fragment() {
         val shareIntent = Intent(Intent.ACTION_SEND_MULTIPLE)
         shareIntent.type = "message/rfc822"
 
-        //TODO debug this part
         shareIntent.putExtra(Intent.EXTRA_SUBJECT, getString(R.string.resume))
         shareIntent.putExtra(Intent.EXTRA_TEXT, getString(R.string.resume_message))
 
